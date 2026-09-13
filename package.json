@@ -1,0 +1,19 @@
+{
+  "name": "leo-wloc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Leo WLOC - 独立部署的 Apple 网络定位 (WLOC) 坐标修改项目",
+  "license": "AGPL-3.0-or-later",
+  "author": "Leo",
+  "homepage": "https://github.com/leoaaa888-bit/leo-wloc",
+  "repository": { "type": "git", "url": "https://github.com/leoaaa888-bit/leo-wloc.git" },
+  "scripts": {
+    "test": "node --test test/*.test.mjs worker/test/*.test.mjs",
+    "check": "node scripts/check.mjs",
+    "icon": "node scripts/build-icon.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

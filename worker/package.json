@@ -1,0 +1,15 @@
+{
+  "name": "leo-wloc-worker",
+  "private": true,
+  "type": "module",
+  "description": "Leo WLOC 选点页面与地图链接解析服务 (Cloudflare Workers / Pages)",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "test": "node --test ../worker/test/*.test.mjs",
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy",
+    "pages:dev": "npx wrangler pages dev --port 8787 -c wrangler.pages.jsonc",
+    "pages:deploy": "npx wrangler pages deploy -c wrangler.pages.jsonc"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,11 @@
+# 仓库内一律用 LF。
+#
+# dist/*.js 和 modules/* 会被代理工具按 raw 直接下载执行, 行尾不该随提交者的操作
+# 系统变化。scripts/check.mjs 还会逐字节比对两份脚本里的共享运行时块 —— 行尾不
+# 统一的话, 在 Windows 上 clone 一次就可能凭空报错。
+* text=auto eol=lf
+
+# 二进制资源不做任何转换
+*.png binary
+*.jpg binary
+*.ico binary

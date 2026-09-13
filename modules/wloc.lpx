@@ -1,0 +1,23 @@
+#!name=Leo WLOC 定位修改
+#!desc=修改 Apple 网络定位返回坐标 (Loon) | 选点页面: https://leo-wloc.pages.dev/ | 参数默认值为出厂示例, 保持不动即为透传; 在选点页面点「储存到设备」后才开始改写定位。
+#!icon=https://raw.githubusercontent.com/leoaaa888-bit/leo-wloc/main/assets/icon.png
+#!author=Leo
+#!homepage=https://github.com/leoaaa888-bit/leo-wloc
+#!openUrl=https://leo-wloc.pages.dev/
+
+[Argument]
+longitude = input, "113.94114", tag=经度 (在线选点优先)
+latitude = input, "22.544577", tag=纬度 (在线选点优先)
+accuracy = input, "25", tag=精度 (米)
+randomRadius = input, "0", tag=扰动半径 (米, 0 为关闭)
+logLevel = select, "info", "off", "error", "warn", "debug", "all", tag=日志级别
+
+[Script]
+# argument 用 key=value&key=value 的具名形式, 不要写成 [{longitude},{latitude}] 那种
+# 位置式列表 —— 位置式传进来是一串逗号分隔的裸值, 脚本按键名取参数时全部取不到,
+# 表现就是模块参数完全不生效。
+http-response ^https?:\/\/(?:gs-loc(?:-cn)?\.apple\.com|gsp-ssl\.ls\.apple\.com|bluedot\.is\.autonavi\.com(?:\.gds\.alibabadns\.com)?)\/clls\/wloc script-path=https://raw.githubusercontent.com/leoaaa888-bit/leo-wloc/main/dist/wloc.js, requires-body=true, binary-body-mode=true, timeout=30, tag=Apple WLOC, argument=longitude={longitude}&latitude={latitude}&accuracy={accuracy}&randomRadius={randomRadius}&logLevel={logLevel}
+http-request ^https?:\/\/gs-loc(-cn)?\.apple\.com\/wloc-settings\/save script-path=https://raw.githubusercontent.com/leoaaa888-bit/leo-wloc/main/dist/wloc-settings.js, timeout=10, tag=WLOC Settings
+
+[MITM]
+hostname = gs-loc.apple.com, gs-loc-cn.apple.com, gsp-ssl.ls.apple.com, bluedot.is.autonavi.com, bluedot.is.autonavi.com.gds.alibabadns.com

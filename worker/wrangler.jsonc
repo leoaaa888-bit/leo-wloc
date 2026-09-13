@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "leo-wloc",
+  "main": "src/index.js",
+  // 这个 Worker 只用 fetch / URL / TextDecoder 等标准 Web API, 不需要
+  // nodejs_compat —— 少一个兼容层就少一份启动开销。
+  "compatibility_date": "2026-08-05",
+  // 关闭持久化日志采集, 与「/api/parse 不记日志」的承诺对齐。
+  // 调试仍可用 `npx wrangler tail`, 那是实时流, 不落盘。
+  "observability": { "enabled": false }
+}

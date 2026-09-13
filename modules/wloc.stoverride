@@ -1,0 +1,36 @@
+name: Leo WLOC 定位修改
+desc: "修改 Apple 网络定位返回坐标 (Stash) | 选点页面: https://leo-wloc.pages.dev/ | argument 中的坐标为出厂示例, 保持不动即为透传; 在选点页面点「储存到设备」后才开始改写定位。"
+author: Leo
+homepage: https://github.com/leoaaa888-bit/leo-wloc
+icon: https://raw.githubusercontent.com/leoaaa888-bit/leo-wloc/main/assets/icon.png
+category: Tools
+
+http:
+  mitm:
+    - "gs-loc.apple.com"
+    - "gs-loc-cn.apple.com"
+    - "gsp-ssl.ls.apple.com"
+    - "bluedot.is.autonavi.com"
+    - "bluedot.is.autonavi.com.gds.alibabadns.com"
+  script:
+    - match: ^https?:\/\/(?:gs-loc(?:-cn)?\.apple\.com|gsp-ssl\.ls\.apple\.com|bluedot\.is\.autonavi\.com(?:\.gds\.alibabadns\.com)?)\/clls\/wloc
+      name: LeoWLOC.Location
+      type: response
+      require-body: true
+      binary-mode: true
+      max-size: 0
+      timeout: 30
+      argument: longitude=113.94114&latitude=22.544577&accuracy=25&randomRadius=0&logLevel=info
+    - match: ^https?:\/\/gs-loc(-cn)?\.apple\.com\/wloc-settings\/save
+      name: LeoWLOC.Settings
+      type: request
+      require-body: false
+      timeout: 10
+
+script-providers:
+  LeoWLOC.Location:
+    url: https://raw.githubusercontent.com/leoaaa888-bit/leo-wloc/main/dist/wloc.js
+    interval: 86400
+  LeoWLOC.Settings:
+    url: https://raw.githubusercontent.com/leoaaa888-bit/leo-wloc/main/dist/wloc-settings.js
+    interval: 86400
