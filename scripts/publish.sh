@@ -117,8 +117,19 @@ else
   npx --yes wrangler@4 login || die "wrangler login 失败"
 fi
 
-npx --yes wrangler@4 pages deploy --project-name "$PAGES_PROJECT" --branch "$BRANCH" \
-  || die "Pages 部署失败。若提示项目不存在, 去 Cloudflare 控制台 Workers & Pages 里先建一个名为 ${PAGES_PROJECT} 的 Pages 项目, 或改 PAGES_PROJECT 变量。"
+# Pages 项目要先存在才能往里部署, wrangler 不会自动创建。
+# 用 project list 判断而不是直接 create —— create 在项目已存在时会报错退出。
+if npx --yes wrangler@4 pages project list 2>/dev/null | grep -qE "^│?\s*${PAGES_PROJECT}\b|\b${PAGES_PROJECT}\b"; then
+  ok "Pages 项目已存在: ${PAGES_PROJECT}"
+else
+  warn "Pages 项目不存在, 创建中…"
+  npx --yes wrangler@4 pages project create "$PAGES_PROJECT" --production-branch "$BRANCH" \
+    || die "创建 Pages 项目失败。名字可能已被同账户下其它项目占用, 改 PAGES_PROJECT 变量后重试。"
+  ok "已创建 Pages 项目 ${PAGES_PROJECT}"
+fi
+
+npx --yes wrangler@4 pages deploy --project-name "$PAGES_PROJECT" --branch "$BRANCH" --commit-dirty=true \
+  || die "Pages 部署失败, 看上面的报错。"
 ok "Pages 已部署"
 
 cd "$ROOT" || exit 1
