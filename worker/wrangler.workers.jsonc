@@ -1,0 +1,16 @@
+{
+  // Workers 部署配置。
+  //
+  // 为什么不叫默认的 wrangler.jsonc: `wrangler pages deploy` 不支持 -c/--config,
+  // 只认当前目录下默认文件名的那一份。所以默认名让给 Pages, Workers 走 -c ——
+  // 它支持自定义路径。用:
+  //     npx wrangler deploy -c wrangler.workers.jsonc
+  "name": "leo-wloc",
+  "main": "src/index.js",
+  // 这个 Worker 只用 fetch / URL / TextDecoder 等标准 Web API, 不需要
+  // nodejs_compat —— 少一个兼容层就少一份启动开销。
+  "compatibility_date": "2026-08-05",
+  // 关闭持久化日志采集, 与「/api/parse 不记日志」的承诺对齐。
+  // 调试仍可用 `npx wrangler tail`, 那是实时流, 不落盘。
+  "observability": { "enabled": false }
+}

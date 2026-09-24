@@ -24,8 +24,8 @@ leo-wloc/
 │   ├── test/                     worker 测试
 │   ├── functions/[[route]].js    Pages 的 catch-all 入口
 │   ├── dist/_routes.json         Pages 路由声明
-│   ├── wrangler.jsonc            Workers 部署配置
-│   ├── wrangler.pages.jsonc      Pages 部署配置
+│   ├── wrangler.jsonc            Pages 部署配置 (必须是默认文件名)
+│   ├── wrangler.workers.jsonc    Workers 部署配置 (用 -c 指定)
 │   └── package.json              无运行时依赖
 │
 ├── test/                         代理脚本测试

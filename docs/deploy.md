@@ -19,12 +19,16 @@ npx wrangler login
 ## Pages (推荐)
 
 ```bash
-npx wrangler pages deploy -c wrangler.pages.jsonc
+npx wrangler pages deploy
 ```
 
 首次部署会问 production branch, 填 `main`。完成后得到 `https://<项目名>.pages.dev`。
 
-> 必须带 `-c wrangler.pages.jsonc`。直接跑 `wrangler pages deploy dist` 会丢掉配置里的
+> **不要加 `-c` / `--config`。** `wrangler pages deploy` 不支持自定义配置文件路径,
+> 只会读当前目录下默认文件名的那一份 —— 所以 `worker/wrangler.jsonc` 是 Pages 的配置,
+> Workers 那份改名成了 `wrangler.workers.jsonc`, 靠 `-c` 指定。
+>
+> 也不要写成 `wrangler pages deploy dist`: 带上目录参数会绕开配置文件, 丢掉
 > `compatibility_date`, Pages 和 Workers 就落在不同的运行时语义上了。
 
 也可以用脚本快捷方式:
@@ -36,7 +40,7 @@ npm run pages:deploy
 ## Workers
 
 ```bash
-npx wrangler deploy
+npx wrangler deploy -c wrangler.workers.jsonc
 ```
 
 得到 `https://leo-wloc.YOUR-SUBDOMAIN.workers.dev`。
@@ -129,7 +133,7 @@ git add dist/ && git commit -m "..." && git push
 **改了 `worker/` 下的东西才需要重新部署:**
 
 ```bash
-cd worker && npx wrangler pages deploy -c wrangler.pages.jsonc
+cd worker && npx wrangler pages deploy
 ```
 
 ## 部署前自检

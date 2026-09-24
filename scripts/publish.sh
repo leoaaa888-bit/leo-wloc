@@ -117,7 +117,7 @@ else
   npx --yes wrangler@4 login || die "wrangler login 失败"
 fi
 
-npx --yes wrangler@4 pages deploy -c wrangler.pages.jsonc --project-name "$PAGES_PROJECT" --branch "$BRANCH" \
+npx --yes wrangler@4 pages deploy --project-name "$PAGES_PROJECT" --branch "$BRANCH" \
   || die "Pages 部署失败。若提示项目不存在, 去 Cloudflare 控制台 Workers & Pages 里先建一个名为 ${PAGES_PROJECT} 的 Pages 项目, 或改 PAGES_PROJECT 变量。"
 ok "Pages 已部署"
 

@@ -1,11 +1,13 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
+  // Pages 部署配置。
+  //
+  // 必须用默认文件名: `wrangler pages deploy` 不支持 -c/--config, 只会读当前目录
+  // 下的 wrangler.jsonc / wrangler.json / wrangler.toml。Workers 那份因此改名成了
+  // wrangler.workers.jsonc, 靠 -c 指定。
+  //
+  // compatibility_date 必须与 wrangler.workers.jsonc 保持一致 —— 两边跑的是同一份
+  // 代码, 日期一旦漂开, Pages 和 Workers 就落在不同的运行时语义上。
   "name": "leo-wloc",
-  "main": "src/index.js",
-  // 这个 Worker 只用 fetch / URL / TextDecoder 等标准 Web API, 不需要
-  // nodejs_compat —— 少一个兼容层就少一份启动开销。
   "compatibility_date": "2026-08-05",
-  // 关闭持久化日志采集, 与「/api/parse 不记日志」的承诺对齐。
-  // 调试仍可用 `npx wrangler tail`, 那是实时流, 不落盘。
-  "observability": { "enabled": false }
+  "pages_build_output_dir": "./dist"
 }

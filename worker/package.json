@@ -5,11 +5,11 @@
   "description": "Leo WLOC 选点页面与地图链接解析服务 (Cloudflare Workers / Pages)",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "test": "node --test ../worker/test/*.test.mjs",
-    "dev": "npx wrangler dev",
-    "deploy": "npx wrangler deploy",
-    "pages:dev": "npx wrangler pages dev --port 8787 -c wrangler.pages.jsonc",
-    "pages:deploy": "npx wrangler pages deploy -c wrangler.pages.jsonc"
+    "test": "node --test test/*.test.mjs",
+    "dev": "wrangler dev -c wrangler.workers.jsonc",
+    "deploy": "wrangler deploy -c wrangler.workers.jsonc",
+    "pages:dev": "wrangler pages dev --port 8787",
+    "pages:deploy": "wrangler pages deploy"
   },
   "dependencies": {}
 }

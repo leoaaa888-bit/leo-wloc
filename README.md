@@ -149,9 +149,12 @@ $prefs.removeValueForKey("wloc_settings")       // Quantumult X
 git clone https://github.com/leoaaa888-bit/leo-wloc.git
 cd leo-wloc/worker
 npx wrangler login
-npx wrangler deploy                              # Workers
-npx wrangler pages deploy -c wrangler.pages.jsonc  # 或 Pages
+npx wrangler pages deploy                      # Pages (推荐)
+npx wrangler deploy -c wrangler.workers.jsonc  # 或 Workers
 ```
+
+> `wrangler pages deploy` 不支持 `-c`, 只读默认文件名的配置 —— 所以
+> `worker/wrangler.jsonc` 是 Pages 的, Workers 那份叫 `wrangler.workers.jsonc`。
 
 完整步骤 (含自定义域名、改成你自己的仓库地址) 见 [docs/deploy.md](docs/deploy.md)。
 
