@@ -2,6 +2,8 @@
 
 ## 1.0.0
 
+**验证状态**: iOS 26 + Shadowrocket 真机实测通过 (2026-09-24) —— 订阅模块、选点页面写入坐标、重启后定位确实改到目标位置。iOS 27 的限制仍为上游转述, 未复验。
+
 首个版本。项目从零建立, 不是对任何既有仓库的修改 —— 详见 [NOTICE.md](NOTICE.md)
 与 [docs/provenance.md](docs/provenance.md)。
 
